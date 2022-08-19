@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-export default function TodoHeader(props) {
-  const [input, setInput] = useState(props.edit ? props.edit.value : "");
+export default function TodoHeader({ edit, onSubmit }) {
+  const [input, setInput] = useState(edit ? edit.value : "");
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -11,54 +11,46 @@ export default function TodoHeader(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    props.onSubmit({
-      id: Math.floor(Math.random() * 1000000),
+    onSubmit({
+      id: Math.floor(Math.random() * 100000),
       text: input,
     });
     setInput("");
   };
 
-
-    return (
-      <form onSubmit={handleSubmit} className="new-task-form">
-        {props.edit ? (
+  return (
+    <form onSubmit={handleSubmit} className="new-task-form">
+      {edit ? (
+        <div>
+          <input
+            id="new-task-input"
+            value={input}
+            ref={inputRef}
+            onChange={(e) => setInput(e.target.value)}
+            name="text"
+            className="todo-input edit"
+            style={{ width: "600px" }}
+          />
+          <button id="new-task-submit" onClick={handleSubmit}>
+            Update todo
+          </button>
+        </div>
+      ) : (
         <div>
           <input
             id="new-task-input"
             type="text"
             value={input}
             ref={inputRef}
-            name="text"
-            className="todo-input"
             onChange={(e) => setInput(e.target.value)}
-            placeholder="What do you have planned?"
+            name="text"
+            className="todo-input edit"
             style={{ width: "600px" }}
+            placeholder="What do you have planned?"
           />
-          <button id="new-task-submit" onClick={handleSubmit}>Update todo</button>
+          <button id="new-task-submit">Add todo</button>
         </div>
-     
-    ) : (
-
-      <div>
-      <input
-        id="new-task-input"
-        type="text"
-        value={input}
-        ref={inputRef}
-        name="text"
-        className="todo-input"
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="What do you have planned?"
-        style={{ width: "600px" }}
-      />
-      <button id="new-task-submit" onClick={handleSubmit}>Add todo</button>
-    </div>
-    )
-    </form>
-  
-  return (
-    <form onSubmit={handleSubmit} className="new-task-form">
-      edit ? {editForm} : initialForm;
+      )}
     </form>
   );
 }

@@ -9,9 +9,7 @@ export default function TodoList() {
     if (!newTodo.text) {
       return;
     }
-
     const newTodos = [newTodo, ...todos];
-
     setTodos(newTodos);
   };
 
@@ -32,8 +30,8 @@ export default function TodoList() {
 
   return (
     <header>
-      <h1>Task List 2022</h1>
-      <TodoHeader addTodo={addTodo} />
+      <h1>Tast List 2022</h1>
+      <TodoHeader onSubmit={addTodo} />
       <br />
       <hr />
       <br />
