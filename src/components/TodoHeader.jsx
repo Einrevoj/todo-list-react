@@ -20,37 +20,21 @@ export default function TodoHeader({ edit, onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className="new-task-form">
-      {edit ? (
-        <div>
-          <input
-            id="new-task-input"
-            value={input}
-            ref={inputRef}
-            onChange={(e) => setInput(e.target.value)}
-            name="text"
-            className="todo-input edit"
-            style={{ width: "600px" }}
-          />
-          <button id="new-task-submit" onClick={handleSubmit}>
-            Update todo
-          </button>
-        </div>
-      ) : (
-        <div>
-          <input
-            id="new-task-input"
-            type="text"
-            value={input}
-            ref={inputRef}
-            onChange={(e) => setInput(e.target.value)}
-            name="text"
-            className="todo-input edit"
-            style={{ width: "600px" }}
-            placeholder="What do you have planned?"
-          />
-          <button id="new-task-submit">Add todo</button>
-        </div>
-      )}
+      <div>
+        <input
+          id="new-task-input"
+          value={input}
+          ref={inputRef}
+          onChange={(e) => setInput(e.target.value)}
+          name="text"
+          className="todo-input edit"
+          style={{ width: "600px" }}
+          placeholder="What do you have planned?"
+        />
+        <button id="new-task-submit" onClick={handleSubmit}>
+          {edit ? "Update todo" : "Add todo"}
+        </button>
+      </div>
     </form>
   );
 }
